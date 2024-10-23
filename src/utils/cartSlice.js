@@ -1,14 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { act } from "react";
 
+const items = localStorage.getItem('items');
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        items: []
+        items: items ? JSON.parse(items) : []
     },
     reducers: {
         // mutating the state here
         addItem: (state, action)=>{
-            state.items.push(action.payload)
+            state.items.push(action.payload);
+            const items = localStorage.getItem('items');
+            if (!items) {
+                localStorage.setItem('items', JSON.stringify([action.payload,]));
+            }
+            else{
+                localStorage.setItem('items', JSON.stringify([...(JSON.parse(items)), action.payload]))
+            }
         },
         remoteItem: (state)=>{
             state.items.pop();
