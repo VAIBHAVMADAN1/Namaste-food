@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { act } from "react";
 
 const items = localStorage.getItem('items');
 const cartSlice = createSlice({
